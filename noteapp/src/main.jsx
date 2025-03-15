@@ -1,14 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createStore } from 'redux'
-import { noteReducer } from './reducers/noteReducer'
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+import { Provider } from 'react-redux'
 
-const renderApp = () => {
-  root.render(<App />)
-}
+import App from './App'
+import noteReducer from './reducers/noteReducer'
 
 const store = createStore(noteReducer)
-renderApp()
-store.subscribe(renderApp)
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+  <Provider store={store}>
+    <App />
+
+  </Provider>
+)
