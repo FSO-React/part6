@@ -1,3 +1,6 @@
+import { useNotificationValue, useNotificationDispatch } from "../NotificationContext"
+import { useEffect } from "react"
+
 const Notification = () => {
   const style = {
     border: 'solid',
@@ -5,12 +8,25 @@ const Notification = () => {
     borderWidth: 1,
     marginBottom: 5
   }
-  
-  if (true) return null
+
+  const notification = useNotificationValue()
+  const dispatch = useNotificationDispatch()
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => {
+        dispatch({ type: 'RESET' })
+      }, 5000)
+      
+      return () => clearTimeout(timer)
+    }
+  })
+
+  if (!notification) return null
 
   return (
     <div style={style}>
-      
+      {notification}
     </div>
   )
 }
